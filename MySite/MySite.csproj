@@ -1030,6 +1030,7 @@
     <Content Include="Views\Shared\Articles.cshtml" />
     <Content Include="Views\Article\PartialArticlesAll.cshtml" />
     <Content Include="Views\Article\PartialArticlesRotator.cshtml" />
+    <Content Include="Views\Shared\_PartialMapView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

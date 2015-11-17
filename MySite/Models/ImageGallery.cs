@@ -17,6 +17,6 @@ namespace MySite.Models
         public System.Guid ID { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }
-        public string ImageList { get; set; }
+        public  List<string>  ImageList { get; set; }
     }
 }
