@@ -1,0 +1,72 @@
+﻿@model  MySite.Models.ImageGallery
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+
+
+<div class="jumbotron" >
+    <p>
+        <a class="imageGallery btn btn-primary" data-fancybox-type="iframe" 
+           href="@Url.Action("UploadImage", "Gallery")">Upload New Image</a>
+    </p>
+    <div style="border-bottom:1px solid Red;"></div>
+    @if (Model.ImageList.Count > 0)
+    {
+        <div class="row-fluid">
+          <div class="span2">
+             <div class="item">
+               @foreach (var image in Model.ImageList)
+               {
+                 <div style=" margin:10px; float:left; height:200px; overflow:hidden; width:200px;">
+                   <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button" 
+                      title="Photo" href="@Url.Content("~/Upload_Files/"+ image)">
+                     <div class="zoom">
+                        <img src="@Url.Content("~/Upload_Files/" + image)" class="imgBox" />
+                          <div class="zoom-icon"></div>
+                     </div>
+                    </a>
+                  </div>
+               }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+  
+       
+ 
+   
+    //    $(document).ready(function () {
+          $("#ShowImage").fancybox({
+             helpers:
+             {
+                   title:
+               {
+                      type: 'float'
+                }
+            }
+           });
+    //    });
+
+    //$(document).ready(function () {
+       $('.imageGallery').fancybox({
+            fitToView: false,
+            width: '600px',
+            height: '400px',
+            autoSize: false,
+            closeClick: false,
+            openEffect: 'none',
+            closeEffect: 'none',
+            padding: 0,
+            closeBtn: false,
+            'afterClose': function () {
+                window.location.reload();
+            }
+        });
+    //});
+</script>
+
+     

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MySite.Models.Article>
+@using MySite.Models;
+
+
+
+
+ 
+    <!-- START THE FEATURETTES -->
+    @foreach (var item in Model)
+    {
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">@Html.DisplayFor(modelItem => item.Title)</h2>
+                  <h3 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleDate)</h3>
+                <p class="lead">@Html.DisplayFor(modelItem => item.ArticleContent)</p>
+                <h3 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleTags)</h3>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="\Content\Images\@item.ArticleImage" alt="Generic placeholder image">
+            </div>
+        </div>
+
+    }
+
+    <!-- /END THE FEATURETTES -->
+
+
+
+
+
+
+    <hr class="featurette-divider">
+
+
+

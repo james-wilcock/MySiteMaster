@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using MySite.Models;
+
 
 namespace MySite.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-        public ActionResult Index()
+      
+
+        public ActionResult Index ()
         {
-            return View();
+            return RedirectToAction("Articles", "Article");
+            //return View();
+
         }
-	}
+        
+    }
 }

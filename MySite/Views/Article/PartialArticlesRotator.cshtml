@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MySite.Models.Article>
+@using MySite.Models;
+  <div class="row">
+   @foreach (var item in Model)
+    {
+
+        <!-- Marketing messaging and featurettes
+        ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+
+
+    <!-- Three columns of text below the carousel -->
+  
+        <div class="col-lg-4">
+            <img class="img-circle" src="\Content\Images\@item.ArticleImage" alt="Generic placeholder image" width="140" height="140">
+            <h2> @Html.DisplayFor(modelItem => item.Title)</h2>
+            <p>@Html.DisplayFor(modelItem => item.ArticleContent)</p>
+
+        </div><!-- /.col-lg-4 -->
+
+ 
+      
+    }
+  <!-- /.row -->
+   </div>

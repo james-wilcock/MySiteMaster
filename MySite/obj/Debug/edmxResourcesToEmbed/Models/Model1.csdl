@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MySiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ArticleId" />
+    </Key>
+    <Property Name="ArticleId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleTags" Type="String" Nullable="false" />
+    <Property Name="ArticleCategory" Type="String" Nullable="false" />
+    <Property Name="ArticleMap" Type="String" Nullable="false" />
+    <Property Name="ArticleType" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ImageGallery">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="MySiteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articles" EntityType="Self.Article" />
+    <EntitySet Name="ImageGalleries" EntityType="Self.ImageGallery" />
+  </EntityContainer>
+</Schema>

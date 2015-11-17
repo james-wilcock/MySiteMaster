@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MySite.Models.Article>
+@{
+    ViewBag.Title = "Articles";
+}
+
+
+<div class="container marketing">
+
+    <h2>Articles</h2>
+       @Html.Partial("PartialArticlesRotator", Model)
+        @Html.Partial("PartialArticlesAll", Model)
+
+   
+
+</div>
