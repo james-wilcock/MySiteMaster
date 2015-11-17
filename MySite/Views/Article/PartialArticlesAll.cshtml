@@ -15,14 +15,21 @@
                 <h2 class="featurette-heading">@Html.DisplayFor(modelItem => item.Title)</h2>
                   <h5 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleDate)</h5>
                 <p class="lead">@Html.DisplayFor(modelItem => item.ArticleContent)</p>
-                <h5 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleTags)</h5>
+                
             </div>
             <div class="col-md-5">
                 <img class="featurette-image img-responsive center-block" src="\Content\Images\@item.ArticleImage" alt="Generic placeholder image">
             </div>
-           
+            <div class="col-md-12">
+                <div>@Html.Partial("_PartialMapView")</div>
+
+            </div>
+            <div class="col-md-12">
+                <h5 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleTags)</h5>
+            </div>
+
         </div>
- <div>@Html.Partial("_PartialMapView")</div>
+
     }
 
     <!-- /END THE FEATURETTES -->

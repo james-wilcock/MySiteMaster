@@ -30,6 +30,12 @@
 <script src="~/Scripts/jquery.fancybox.js"></script>
 <link href="~/Content/jquery.fancybox.css" rel="stylesheet" media="screen" />
       <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+ <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.20.0.css">
+
+   
+
+ 
+
   </head>
 <!-- NAVBAR
 ================================================== -->
@@ -77,7 +83,10 @@
 
 @RenderBody()
 
-
+       <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="//code.jquery.com/qunit/qunit-1.20.0.js"></script>
+  <script src="~/Scripts/tests/tests.js"></script>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -974,6 +974,7 @@
     <Content Include="Scripts\js\JavaScript1.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\tests\tests.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
   </ItemGroup>
