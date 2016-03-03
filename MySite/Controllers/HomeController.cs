@@ -16,10 +16,12 @@ namespace MySite.Controllers
 
         public ActionResult Index ()
         {
-            return RedirectToAction("Articles", "Article");
-            //return View();
+           // return RedirectToAction("Default", "Default");
+           return View();
 
         }
+
+       
         
     }
 }

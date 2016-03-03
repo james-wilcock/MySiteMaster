@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MySite.DAL;
 using MySite.Models;
-
+using PagedList;
 namespace MySite.Controllers
 {
     public class ArticleController : Controller
@@ -16,11 +16,23 @@ namespace MySite.Controllers
         private DbConnectionContext db = new DbConnectionContext();
         IArticleRepository ar = new EF_ArticleRepository();
 
-        // GET: /Article/
-        public ActionResult Articles()
+        // GET: /Article/Articles
+        public ViewResult Articles(int? page)
         {
-          
-            return View(ar.GetAllArticles());
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+           
+            return View(ar.GetAllArticles().ToPagedList(pageNumber, pageSize));
+        }
+        // GET: /Article/
+        public ActionResult Index(int? page)
+        {
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(ar.GetAllArticles().ToPagedList(pageNumber, pageSize));
         }
 
         // GET: /Article/Details/5

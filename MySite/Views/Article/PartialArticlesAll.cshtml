@@ -1,32 +1,28 @@
-﻿@model IEnumerable<MySite.Models.Article>
+﻿
 @using MySite.Models;
-
-
-
-
- 
+@model PagedList.IPagedList<MySite.Models.Article>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
     <!-- START THE FEATURETTES -->
     @foreach (var item in Model)
     {
         <hr class="featurette-divider">
 
         <div class="row featurette">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">@Html.DisplayFor(modelItem => item.Title)</h2>
-                  <h5 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleDate)</h5>
-                <p class="lead">@Html.DisplayFor(modelItem => item.ArticleContent)</p>
-                
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-responsive center-block" src="\Content\Images\@item.ArticleImage" alt="Generic placeholder image">
-            </div>
             <div class="col-md-12">
-                <div>@Html.Partial("_PartialMapView")</div>
+                <h2 class="featurette-heading"><a href="~/Article/Details/@item.ArticleId">@Html.DisplayFor(modelItem => item.Title)</a></h2>
+                  <h5 class="lead">@Html.DisplayFor(modelItem => item.ArticleCategory) - @Html.DisplayFor(modelItem => item.ArticleDate)</h5>
+               <img class="featurette-image img-responsive center-block" src="\Content\Images\@item.ArticleImage" alt="@item.ArticleImageAltText">
 
+            <div>
+                @Html.Raw(item.ArticleContent)
+            
+                     
             </div>
-            <div class="col-md-12">
-                <h5 class="featurette-heading">@Html.DisplayFor(modelItem => item.ArticleTags)</h5>
+              
             </div>
+           
+           
 
         </div>
 
@@ -41,5 +37,8 @@
 
     <hr class="featurette-divider">
 
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
+@Html.PagedListPager(Model, page => Url.Action("Articles", 
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 

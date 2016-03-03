@@ -20,3 +20,8 @@ D:\GitRepositories\MySite\MySite\MySite\bin\System.Web.WebPages.Razor.xml
 D:\GitRepositories\MySite\MySite\MySite\obj\Debug\MySite.dll
 D:\GitRepositories\MySite\MySite\MySite\obj\Debug\MySite.pdb
 D:\GitRepositories\MySite\MySite\MySite\obj\Debug\MySite.csprojResolveAssemblyReference.cache
+D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.dll
+D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.Mvc.dll
+D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.xml
+D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.Mvc.xml
+D:\GitRepositories\MySite\MySite\MySite\bin\MySite.dll.config

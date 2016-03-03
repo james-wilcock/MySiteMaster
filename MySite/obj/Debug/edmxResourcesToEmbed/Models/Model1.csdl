@@ -7,12 +7,14 @@
     <Property Name="ArticleId" Type="Int32" Nullable="false" />
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ArticleDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleDate" Type="String" Nullable="false" />
     <Property Name="ArticleImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ArticleTags" Type="String" Nullable="false" />
-    <Property Name="ArticleCategory" Type="String" Nullable="false" />
-    <Property Name="ArticleMap" Type="String" Nullable="false" />
-    <Property Name="ArticleType" Type="String" Nullable="false" />
+    <Property Name="ArticleTags" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+    <Property Name="ArticleCategory" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+    <Property Name="ArticleMap" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+    <Property Name="ArticleType" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
+    <Property Name="ArticleImageAltText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ImageGalleries" Relationship="MySiteModel.FK_ImageGalleries_Articles" FromRole="Article" ToRole="ImageGallery" />
   </EntityType>
   <EntityType Name="ImageGallery">
     <Key>
@@ -21,9 +23,28 @@
     <Property Name="ID" Type="Guid" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImageAltText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleID" Type="Int32" />
+    <NavigationProperty Name="Article" Relationship="MySiteModel.FK_ImageGalleries_Articles" FromRole="ImageGallery" ToRole="Article" />
   </EntityType>
   <EntityContainer Name="MySiteEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Articles" EntityType="Self.Article" />
     <EntitySet Name="ImageGalleries" EntityType="Self.ImageGallery" />
+    <AssociationSet Name="FK_ImageGalleries_Articles" Association="MySiteModel.FK_ImageGalleries_Articles">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="ImageGallery" EntitySet="ImageGalleries" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_ImageGalleries_Articles">
+    <End Type="MySiteModel.Article" Role="Article" Multiplicity="0..1" />
+    <End Type="MySiteModel.ImageGallery" Role="ImageGallery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ArticleId" />
+      </Principal>
+      <Dependent Role="ImageGallery">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

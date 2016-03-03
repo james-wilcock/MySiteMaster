@@ -7,12 +7,11 @@
     <Property Name="ArticleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" />
     <Property Name="ArticleContent" Type="nvarchar(max)" />
-    <Property Name="ArticleDate" Type="nvarchar(max)" />
-    <Property Name="ArticleImage" Type="nvarchar(max)" />
+    <Property Name="ArticleDate" Type="datetime" Nullable="false" />
     <Property Name="ArticleTags" Type="nvarchar(max)" />
     <Property Name="ArticleCategory" Type="nvarchar(max)" />
-    <Property Name="ArticleType" Type="nvarchar(max)" />
     <Property Name="ArticleMap" Type="nvarchar(max)" />
+    <Property Name="ArticleType" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="ImageGalleries">
     <Key>
@@ -21,9 +20,27 @@
     <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="ImagePath" Type="nvarchar(max)" />
+    <Property Name="ImageAltText" Type="nvarchar(max)" />
+    <Property Name="ArticleID" Type="int" />
   </EntityType>
+  <Association Name="FK_ImageGalleries_Articles">
+    <End Role="Articles" Type="Self.Articles" Multiplicity="0..1" />
+    <End Role="ImageGalleries" Type="Self.ImageGalleries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="ArticleId" />
+      </Principal>
+      <Dependent Role="ImageGalleries">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="MySiteModelStoreContainer">
     <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ImageGalleries" EntityType="Self.ImageGalleries" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ImageGalleries_Articles" Association="Self.FK_ImageGalleries_Articles">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="ImageGalleries" EntitySet="ImageGalleries" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

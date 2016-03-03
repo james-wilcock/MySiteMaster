@@ -32,10 +32,34 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ArticleDate, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ArticleDate, new {@class = "control-label col-md-2"})
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ArticleDate)
                 @Html.ValidationMessageFor(model => model.ArticleDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticleTags, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArticleTags)
+                @Html.ValidationMessageFor(model => model.ArticleTags)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticleMap, new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArticleMap)
+                @Html.ValidationMessageFor(model => model.ArticleMap)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArticleType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ArticleType)
+                @Html.ValidationMessageFor(model => model.ArticleType)
             </div>
         </div>
 

@@ -21,7 +21,8 @@ namespace MySite.Controllers
                 var imageFiles = Directory.GetFiles(Server.MapPath("~/Upload_Files/"));
                 foreach (var item in imageFiles)
                 {
-                    imagesModel.ImageList.Add(Path.GetFileName(item));
+                    String paths = Path.GetFileName(item);
+                 //   imagesModel.ImageList.Add(Path.GetFileName(paths));
                 }
                 return View(imagesModel);
             }

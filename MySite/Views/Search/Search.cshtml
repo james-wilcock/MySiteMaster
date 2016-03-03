@@ -1,0 +1,60 @@
+﻿@using MySite.Models;
+@model PagedList.IPagedList<MySite.Models.Article>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<!-- Custom CSS -->
+<link href="css/shop-homepage.css" rel="stylesheet">
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="list-group" ng-app="myApp" ng-controller="locationsCtrl">
+                {{message}}
+                <ul>
+                    <li ng-repeat="x in myData">
+                        {{ x.town + ', ' + x.province }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+      
+            <div class="row">@foreach (var item in Model)
+        {
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <img class="img-responsive" src="\Content\Images\@item.ArticleImage" alt="@item.ArticleImageAltText">
+                       
+                        <div class="caption">
+                            <h4 class="pull-right">$24.99</h4>
+                            <h4>
+                                <a href="~/Search/Detail/@item.ArticleId">@Html.DisplayFor(modelItem => item.Title)</a>
+                            </h4>
+                            <p>
+                                See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.
+                            </p>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">15 reviews</p>
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+  }
+            </div>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Search",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+      
+    </div>
+</div>
+
+

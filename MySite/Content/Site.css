@@ -6,3 +6,53 @@
         opacity: 0.4;
         filter: alpha(opacity=40);
 }
+.limited {
+    margin:20px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ display: -webkit-box;
+ -webkit-line-clamp: 3;
+ -webkit-box-orient: vertical;
+ ms-webkit-line-clamp: 3;
+ -webkit-box-orient: vertical;
+
+
+}
+
+.quick-search-form .form-control {
+height: 35px;
+padding: 8px 15px;
+color: #a4a4a4;   /* change  color of text to be typed inside search box */
+font-size: 13px;
+line-height: 20px;
+
+border: 1px solid #ccc;
+border-radius: 0!important;
+-webkit-box-shadow: none;
+box-shadow: none;
+}
+
+
+
+.btn-custom {
+color: #FFFFFF;            
+background-color: #7bae23;   /* change  button color */
+border-radius: 0!important;    /* button border radius */
+padding: 6px 10px;              /* Button size change*/
+
+}
+
+.btn-custom:hover{
+background-color:#9AC94B; /* change  button color on hover */
+border-radius: 0!important;
+
+}
+
+
+.custom-glyph-color{
+    color:#fff;       /* change  magnifying glass color in  button */
+}
+
+.custom-glyph-color:hover{
+    color:#b1b1b1;         /* change  magnifying glass color in  button on mouse hover */
+}

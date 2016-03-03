@@ -12,13 +12,14 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="ArticleContent" ColumnName="ArticleContent" />
           <ScalarProperty Name="ArticleDate" ColumnName="ArticleDate" />
-          <ScalarProperty Name="ArticleImage" ColumnName="ArticleImage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ImageGalleries">
       <EntityTypeMapping TypeName="MySiteModel.ImageGallery">
         <MappingFragment StoreEntitySet="ImageGalleries">
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="ImageAltText" ColumnName="ImageAltText" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
