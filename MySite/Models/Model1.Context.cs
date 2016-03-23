@@ -27,5 +27,6 @@ namespace MySite.Models
     
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<ImageGallery> ImageGalleries { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

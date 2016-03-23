@@ -137,6 +137,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
@@ -982,6 +983,9 @@
     </Compile>
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Models\BasicSearch.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DBConnectionContext.cs" />
     <Compile Include="Models\ImageGallery.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -1000,6 +1004,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MetaData\ArticleMD.cs" />
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

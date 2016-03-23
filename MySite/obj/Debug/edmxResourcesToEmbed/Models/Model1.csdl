@@ -7,13 +7,13 @@
     <Property Name="ArticleId" Type="Int32" Nullable="false" />
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ArticleDate" Type="String" Nullable="false" />
+    <Property Name="ArticleDate" Type="String" />
     <Property Name="ArticleImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ArticleTags" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
     <Property Name="ArticleCategory" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
     <Property Name="ArticleMap" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
     <Property Name="ArticleType" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
-    <Property Name="ArticleImageAltText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ArticleImageAltText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ImageGalleries" Relationship="MySiteModel.FK_ImageGalleries_Articles" FromRole="Article" ToRole="ImageGallery" />
   </EntityType>
   <EntityType Name="ImageGallery">
@@ -34,6 +34,7 @@
       <End Role="Article" EntitySet="Articles" />
       <End Role="ImageGallery" EntitySet="ImageGalleries" />
     </AssociationSet>
+    <EntitySet Name="Users" EntityType="MySiteModel.User" />
   </EntityContainer>
   <Association Name="FK_ImageGalleries_Articles">
     <End Type="MySiteModel.Article" Role="Article" Multiplicity="0..1" />
@@ -47,4 +48,17 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="String" />
+  </EntityType>
 </Schema>

@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Web.Mvc;
-
 namespace MySite.Models
 {
     using System;
@@ -23,11 +21,9 @@ namespace MySite.Models
         }
     
         public int ArticleId { get; set; }
-       
         public string Title { get; set; }
-    [AllowHtml]
         public string ArticleContent { get; set; }
-        public string ArticleDate { get; set; }
+        public DateTime ArticleDate { get; set; }
         public string ArticleImage { get; set; }
         public string ArticleTags { get; set; }
         public string ArticleCategory { get; set; }

@@ -12,7 +12,7 @@ namespace MySite.Models
             public DbConnectionContext()
                 : base("name=dbContext")
             {
-                Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DbConnectionContext>());
+               // Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DbConnectionContext>());
             }
             public DbSet<ImageGallery> ImageGallery { get; set; }
 

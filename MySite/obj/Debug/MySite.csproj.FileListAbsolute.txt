@@ -24,4 +24,3 @@ D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.dll
 D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.Mvc.dll
 D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.xml
 D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.Mvc.xml
-D:\GitRepositories\MySite\MySite\MySite\bin\MySite.dll.config

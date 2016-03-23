@@ -7,11 +7,13 @@
     <Property Name="ArticleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" />
     <Property Name="ArticleContent" Type="nvarchar(max)" />
-    <Property Name="ArticleDate" Type="datetime" Nullable="false" />
+    <Property Name="ArticleDate" Type="datetime2" Precision="7" />
+    <Property Name="ArticleImage" Type="nvarchar(max)" />
     <Property Name="ArticleTags" Type="nvarchar(max)" />
     <Property Name="ArticleCategory" Type="nvarchar(max)" />
     <Property Name="ArticleMap" Type="nvarchar(max)" />
     <Property Name="ArticleType" Type="nvarchar(max)" />
+    <Property Name="ArticleImageAltText" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="ImageGalleries">
     <Key>
@@ -23,7 +25,20 @@
     <Property Name="ImageAltText" Type="nvarchar(max)" />
     <Property Name="ArticleID" Type="int" />
   </EntityType>
-  <Association Name="FK_ImageGalleries_Articles">
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserType" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_dbo_ImageGalleries_dbo_Articles_ArticleID">
     <End Role="Articles" Type="Self.Articles" Multiplicity="0..1" />
     <End Role="ImageGalleries" Type="Self.ImageGalleries" Multiplicity="*" />
     <ReferentialConstraint>
@@ -38,7 +53,8 @@
   <EntityContainer Name="MySiteModelStoreContainer">
     <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ImageGalleries" EntityType="Self.ImageGalleries" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_ImageGalleries_Articles" Association="Self.FK_ImageGalleries_Articles">
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_ImageGalleries_dbo_Articles_ArticleID" Association="Self.FK_dbo_ImageGalleries_dbo_Articles_ArticleID">
       <End Role="Articles" EntitySet="Articles" />
       <End Role="ImageGalleries" EntitySet="ImageGalleries" />
     </AssociationSet>
