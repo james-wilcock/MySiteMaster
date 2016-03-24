@@ -17,6 +17,9 @@ namespace MySite.Models
             public DbSet<ImageGallery> ImageGallery { get; set; }
 
             public System.Data.Entity.DbSet<MySite.Models.Article> Articles { get; set; }
+            public System.Data.Entity.DbSet<MySite.Models.User> Users { get; set; }
+
+            public System.Data.Entity.DbSet<MySite.Models.Listing> Listings { get; set; }
           
         }
     

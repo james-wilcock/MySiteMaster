@@ -30,7 +30,9 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="MySiteModel.User">
-        <MappingFragment StoreEntitySet="User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="UserType" ColumnName="UserType" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -39,6 +41,57 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserListings">
+      <EntityTypeMapping TypeName="MySiteModel.UserListing">
+        <MappingFragment StoreEntitySet="UserListings">
+          <ScalarProperty Name="Listing_Id" ColumnName="Listing_Id" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Listings">
+      <EntityTypeMapping TypeName="MySiteModel.Listing">
+        <MappingFragment StoreEntitySet="Listings">
+          <ScalarProperty Name="DisabledAccess" ColumnName="DisabledAccess" />
+          <ScalarProperty Name="Smoking" ColumnName="Smoking" />
+          <ScalarProperty Name="Pets" ColumnName="Pets" />
+          <ScalarProperty Name="Bathrooms" ColumnName="Bathrooms" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Bedrooms" ColumnName="Bedrooms" />
+          <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ContractLength" ColumnName="ContractLength" />
+          <ScalarProperty Name="BuildingType" ColumnName="BuildingType" />
+          <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ListingType" ColumnName="ListingType" />
+          <ScalarProperty Name="DateAvailable" ColumnName="DateAvailable" />
+          <ScalarProperty Name="ListingUpdatedBy" ColumnName="ListingUpdatedBy" />
+          <ScalarProperty Name="ListingAddedBy" ColumnName="ListingAddedBy" />
+          <ScalarProperty Name="ListingUpdated" ColumnName="ListingUpdated" />
+          <ScalarProperty Name="ListingExpiry" ColumnName="ListingExpiry" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DateListed" ColumnName="DateListed" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListingImageGalleries">
+      <EntityTypeMapping TypeName="MySiteModel.ListingImageGallery">
+        <MappingFragment StoreEntitySet="ListingImageGalleries">
+          <ScalarProperty Name="ListingID" ColumnName="ListingID" />
+          <ScalarProperty Name="ImageAltText" ColumnName="ImageAltText" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

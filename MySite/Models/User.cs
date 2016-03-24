@@ -14,6 +14,12 @@ namespace MySite.Models
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.UserListings = new HashSet<UserListing>();
+        }
+    
         public int Id { get; set; }
         public string UserId { get; set; }
         public string Password { get; set; }
@@ -21,6 +27,11 @@ namespace MySite.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserType { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public bool Active { get; set; }
+        public string Roles { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserListing> UserListings { get; set; }
     }
 }

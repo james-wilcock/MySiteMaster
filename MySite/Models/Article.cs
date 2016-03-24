@@ -23,7 +23,7 @@ namespace MySite.Models
         public int ArticleId { get; set; }
         public string Title { get; set; }
         public string ArticleContent { get; set; }
-        public DateTime ArticleDate { get; set; }
+        public Nullable<System.DateTime> ArticleDate { get; set; }
         public string ArticleImage { get; set; }
         public string ArticleTags { get; set; }
         public string ArticleCategory { get; set; }

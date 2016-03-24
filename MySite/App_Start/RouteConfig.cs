@@ -34,6 +34,16 @@ namespace MySite
                 defaults: new { controller = "Location", action = "LocationActionResult"}
             );
              routes.MapRoute(
+              name: "Landlord",
+              url: "Landlord/{action}/{id}",
+              defaults: new { controller = "Landlord", action = "LandlordHome", id = UrlParameter.Optional }
+          );
+             routes.MapRoute(
+              name: "MyListings",
+              url: "MyListings/{action}/{id}",
+              defaults: new { controller = "Listing", action = "MyListings", id = UrlParameter.Optional }
+          );
+             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

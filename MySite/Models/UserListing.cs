@@ -12,11 +12,13 @@ namespace MySite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    public partial class UserListing
     {
-        public string MigrationId { get; set; }
-        public string ContextKey { get; set; }
-        public byte[] Model { get; set; }
-        public string ProductVersion { get; set; }
+        public int Id { get; set; }
+        public int User_Id { get; set; }
+        public int Listing_Id { get; set; }
+    
+        public virtual User User { get; set; }
+        public virtual Listing Listing { get; set; }
     }
 }

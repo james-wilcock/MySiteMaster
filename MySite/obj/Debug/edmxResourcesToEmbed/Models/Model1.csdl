@@ -7,7 +7,7 @@
     <Property Name="ArticleId" Type="Int32" Nullable="false" />
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="ArticleDate" Type="String" />
+    <Property Name="ArticleDate" Type="DateTime" Precision="7" />
     <Property Name="ArticleImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ArticleTags" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
     <Property Name="ArticleCategory" Type="String" Unicode="true" FixedLength="false" MaxLength="Max" />
@@ -35,6 +35,21 @@
       <End Role="ImageGallery" EntitySet="ImageGalleries" />
     </AssociationSet>
     <EntitySet Name="Users" EntityType="MySiteModel.User" />
+    <EntitySet Name="UserListings" EntityType="MySiteModel.UserListing" />
+    <AssociationSet Name="FK_UserListings_Users" Association="MySiteModel.FK_UserListings_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserListing" EntitySet="UserListings" />
+    </AssociationSet>
+    <EntitySet Name="Listings" EntityType="MySiteModel.Listing" />
+    <AssociationSet Name="FK_UserListings_Listings" Association="MySiteModel.FK_UserListings_Listings">
+      <End Role="Listing" EntitySet="Listings" />
+      <End Role="UserListing" EntitySet="UserListings" />
+    </AssociationSet>
+    <EntitySet Name="ListingImageGalleries" EntityType="MySiteModel.ListingImageGallery" />
+    <AssociationSet Name="FK_dbo_ListingImageGalleries_dbo_Listings_Id" Association="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id">
+      <End Role="Listing" EntitySet="Listings" />
+      <End Role="ListingImageGallery" EntitySet="ListingImageGalleries" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_ImageGalleries_Articles">
     <End Type="MySiteModel.Article" Role="Article" Multiplicity="0..1" />
@@ -52,13 +67,105 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PasswordSalt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CreatedDate" Type="String" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <Property Name="Roles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserListings" Relationship="MySiteModel.FK_UserListings_Users" FromRole="User" ToRole="UserListing" />
   </EntityType>
+  <EntityType Name="UserListing">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Listing_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MySiteModel.FK_UserListings_Users" FromRole="UserListing" ToRole="User" />
+    <NavigationProperty Name="Listing" Relationship="MySiteModel.FK_UserListings_Listings" FromRole="UserListing" ToRole="Listing" />
+  </EntityType>
+  <Association Name="FK_UserListings_Users">
+    <End Type="MySiteModel.User" Role="User" Multiplicity="1" />
+    <End Type="MySiteModel.UserListing" Role="UserListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserListing">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Listing">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateListed" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ListingExpiry" Type="DateTime" Precision="3" />
+    <Property Name="ListingUpdated" Type="DateTime" Precision="3" />
+    <Property Name="ListingAddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ListingUpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateAvailable" Type="DateTime" Precision="3" />
+    <Property Name="ListingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Deposit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BuildingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ContractLength" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Postcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Rooms" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Bedrooms" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Size" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Bathrooms" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Pets" Type="Boolean" />
+    <Property Name="Smoking" Type="Boolean" />
+    <Property Name="DisabledAccess" Type="Boolean" />
+    <NavigationProperty Name="UserListings" Relationship="MySiteModel.FK_UserListings_Listings" FromRole="Listing" ToRole="UserListing" />
+    <NavigationProperty Name="ListingImageGalleries" Relationship="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id" FromRole="Listing" ToRole="ListingImageGallery" />
+  </EntityType>
+  <Association Name="FK_UserListings_Listings">
+    <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="1" />
+    <End Type="MySiteModel.UserListing" Role="UserListing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserListing">
+        <PropertyRef Name="Listing_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ListingImageGallery">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImageAltText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ListingID" Type="Int32" />
+    <NavigationProperty Name="Listing" Relationship="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id" FromRole="ListingImageGallery" ToRole="Listing" />
+  </EntityType>
+  <Association Name="FK_dbo_ListingImageGalleries_dbo_Listings_Id">
+    <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="0..1" />
+    <End Type="MySiteModel.ListingImageGallery" Role="ListingImageGallery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ListingImageGallery">
+        <PropertyRef Name="ListingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

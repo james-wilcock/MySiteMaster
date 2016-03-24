@@ -8,7 +8,13 @@
         <EntityTypeShape EntityType="MySiteModel.Article" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MySiteModel.ImageGallery" PointX="3" PointY="1.25" Width="1.5" IsExpanded="true" />
         <AssociationConnector Association="MySiteModel.FK_ImageGalleries_Articles" />
-        <EntityTypeShape EntityType="MySiteModel.User" Width="1.5" PointX="5.625" PointY="1.75" />
+        <EntityTypeShape EntityType="MySiteModel.User" Width="1.5" PointX="5.375" PointY="1.5" />
+        <EntityTypeShape EntityType="MySiteModel.UserListing" Width="1.5" PointX="7.625" PointY="2.125" />
+        <AssociationConnector Association="MySiteModel.FK_UserListings_Users" />
+        <EntityTypeShape EntityType="MySiteModel.Listing" Width="1.5" PointX="0.75" PointY="4.5" />
+        <AssociationConnector Association="MySiteModel.FK_UserListings_Listings" />
+        <EntityTypeShape EntityType="MySiteModel.ListingImageGallery" Width="1.5" PointX="3" PointY="7.125" />
+        <AssociationConnector Association="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
