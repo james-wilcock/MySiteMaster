@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -42,14 +43,18 @@ namespace MySite.DAL
 
         public IEnumerable<Listing> GetMyListings(int userId)
         {
-            
-var query = from g in db.Listings
-            join u in db.UserListings on g.User_Id equals u.userID
-            select new { g, u, });
+
+            IEnumerable<Listing> lists = from g in db.Listings
+                join u in db.UserListings on g.Id equals u.Listing_Id
+                        where u.Id.Equals(userId)
+                        orderby u.Listing_Id
+                select g;
+
+            return lists;
         }
 
 
 
-
+         
     }
 }

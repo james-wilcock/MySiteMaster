@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using MySite.DAL;
 using MySite.Models;
+using MySite.Services;
 using PagedList;
 
 namespace MySite.Controllers
@@ -18,11 +19,21 @@ namespace MySite.Controllers
         private DbConnectionContext db = new DbConnectionContext();
         IListingRepository ar = new EF_ListingRepository();
 
+
+        //private IListingService service;
+
+        //public ListingController(IListingService service)
+        //{
+        //    this.service = service;
+        //}
+
         // GET: /Listing/
         public ActionResult Index()
         {
             return View(db.Listings.ToList());
         }
+
+       
 
         // GET: /Listing/
         // GET: /Article/Articles
@@ -85,6 +96,7 @@ namespace MySite.Controllers
         }
 
         // GET: /Listing/Edit/5
+        [Authorize(Roles = "admin,landlord,realtor")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -103,6 +115,7 @@ namespace MySite.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "admin,landlord,realtor")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="Id,DateListed,Status,ListingExpiry,ListingUpdated,ListingAddedBy,ListingUpdatedBy,DateAvailable,ListingType,Price,Deposit,BuildingType,ContractLength,Address,City,Country,Postcode,Description,Rooms,Bedrooms,Size,Bathrooms,Pets,Smoking,DisabledAccess")] Listing listing)
         {

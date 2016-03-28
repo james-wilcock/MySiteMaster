@@ -20,6 +20,7 @@ namespace MySite.Models
             public System.Data.Entity.DbSet<MySite.Models.User> Users { get; set; }
 
             public System.Data.Entity.DbSet<MySite.Models.Listing> Listings { get; set; }
+            public System.Data.Entity.DbSet<MySite.Models.UserListing> UserListings { get; set; }
           
         }
     

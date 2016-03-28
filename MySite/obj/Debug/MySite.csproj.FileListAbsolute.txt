@@ -24,3 +24,12 @@ D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.dll
 D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.Mvc.dll
 D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.xml
 D:\GitRepositories\MySite\MySite\MySite\bin\PagedList.Mvc.xml
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.ServiceLocation.dll
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.Unity.Configuration.dll
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.Unity.dll
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.ServiceLocation.pdb
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.ServiceLocation.xml
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.Unity.xml
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.Unity.Configuration.xml
+D:\GitRepositories\MySite\MySite\MySite\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
