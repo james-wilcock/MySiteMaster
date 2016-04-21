@@ -31,5 +31,7 @@ namespace MySite.Models
         public virtual DbSet<UserListing> UserListings { get; set; }
         public virtual DbSet<Listing> Listings { get; set; }
         public virtual DbSet<ListingImageGallery> ListingImageGalleries { get; set; }
+        public virtual DbSet<Feature> Features { get; set; }
+        public virtual DbSet<ListingDetail> ListingDetails { get; set; }
     }
 }

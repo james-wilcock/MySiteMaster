@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using MySite.Models;
+using MySite.Models.ViewModels;
 
 namespace MySite.DAL
 {
@@ -38,8 +41,21 @@ namespace MySite.DAL
 
         public IEnumerable<Listing> GetAllListings()
         {
-            return db.Listings.ToList();
+            IEnumerable<Listing> lists = from g in db.Listings
+                join u in db.ListingsImageGalleries on g.HeadImage equals u.ListingID
+                select g;
+                                          return lists;
         }
+
+          public IEnumerable<Listing> SearchListings()
+        {
+         IEnumerable<Listing> lists = from g in db.Listings
+                                        orderby g.DateListed
+              select g;
+                                          return lists;
+        }
+
+           
 
         public IEnumerable<Listing> GetMyListings(int userId)
         {

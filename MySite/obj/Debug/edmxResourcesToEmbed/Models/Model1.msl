@@ -56,6 +56,22 @@
     <EntitySetMapping Name="Listings">
       <EntityTypeMapping TypeName="MySiteModel.Listing">
         <MappingFragment StoreEntitySet="Listings">
+          <ScalarProperty Name="HeadImage" ColumnName="HeadImage" />
+          <ScalarProperty Name="SizeUnits" ColumnName="SizeUnits" />
+          <ScalarProperty Name="WalkScore" ColumnName="WalkScore" />
+          <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+          <ScalarProperty Name="ParkingType" ColumnName="ParkingType" />
+          <ScalarProperty Name="CoolingType" ColumnName="CoolingType" />
+          <ScalarProperty Name="ServiceCharge" ColumnName="ServiceCharge" />
+          <ScalarProperty Name="Utilities" ColumnName="Utilities" />
+          <ScalarProperty Name="ParkingSpaces" ColumnName="ParkingSpaces" />
+          <ScalarProperty Name="HeatingType" ColumnName="HeatingType" />
+          <ScalarProperty Name="LaundryType" ColumnName="LaundryType" />
+          <ScalarProperty Name="Community" ColumnName="Community" />
+          <ScalarProperty Name="BasementType" ColumnName="BasementType" />
+          <ScalarProperty Name="Storeys" ColumnName="Storeys" />
+          <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+          <ScalarProperty Name="Furnished" ColumnName="Furnished" />
           <ScalarProperty Name="DisabledAccess" ColumnName="DisabledAccess" />
           <ScalarProperty Name="Smoking" ColumnName="Smoking" />
           <ScalarProperty Name="Pets" ColumnName="Pets" />
@@ -92,6 +108,31 @@
           <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Features">
+      <EntityTypeMapping TypeName="MySiteModel.Feature">
+        <MappingFragment StoreEntitySet="Features">
+          <ScalarProperty Name="FeatureAdded" ColumnName="FeatureAdded" />
+          <ScalarProperty Name="FeatureAddedBy" ColumnName="FeatureAddedBy" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Property" ColumnName="Property" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListingDetails">
+      <EntityTypeMapping TypeName="MySiteModel.ListingDetail">
+        <MappingFragment StoreEntitySet="ListingDetail">
+          <ScalarProperty Name="SizeUnits" ColumnName="SizeUnits" />
+          <ScalarProperty Name="SizeL" ColumnName="SizeL" />
+          <ScalarProperty Name="SizeW" ColumnName="SizeW" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+          <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

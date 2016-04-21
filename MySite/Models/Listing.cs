@@ -19,6 +19,8 @@ namespace MySite.Models
         {
             this.UserListings = new HashSet<UserListing>();
             this.ListingImageGalleries = new HashSet<ListingImageGallery>();
+            this.Features = new HashSet<Feature>();
+            this.ListingDetails = new HashSet<ListingDetail>();
         }
     
         public int Id { get; set; }
@@ -46,10 +48,30 @@ namespace MySite.Models
         public Nullable<bool> Pets { get; set; }
         public Nullable<bool> Smoking { get; set; }
         public Nullable<bool> DisabledAccess { get; set; }
+        public string Furnished { get; set; }
+        public string PriceType { get; set; }
+        public Nullable<int> Storeys { get; set; }
+        public string BasementType { get; set; }
+        public string Community { get; set; }
+        public string LaundryType { get; set; }
+        public string HeatingType { get; set; }
+        public Nullable<int> ParkingSpaces { get; set; }
+        public string Utilities { get; set; }
+        public Nullable<decimal> ServiceCharge { get; set; }
+        public string CoolingType { get; set; }
+        public string ParkingType { get; set; }
+        public string FuelType { get; set; }
+        public Nullable<decimal> WalkScore { get; set; }
+        public string SizeUnits { get; set; }
+        public Nullable<int> HeadImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserListing> UserListings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ListingImageGallery> ListingImageGalleries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feature> Features { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ListingDetail> ListingDetails { get; set; }
     }
 }

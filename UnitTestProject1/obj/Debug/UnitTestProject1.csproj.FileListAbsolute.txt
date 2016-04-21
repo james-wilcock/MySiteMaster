@@ -24,3 +24,6 @@ D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\PagedList.dll
 D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\PagedList.Mvc.dll
 D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\PagedList.xml
 D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\PagedList.Mvc.xml
+D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\GitRepositories\MySite\MySite\UnitTestProject1\bin\Debug\Microsoft.Web.Infrastructure.xml

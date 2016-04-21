@@ -24,6 +24,7 @@ namespace MySite.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public string Price { get; set; }
 
+      
 
         // public virtual ICollection<ImageGallery> ImageGalleries { get; set; }
 

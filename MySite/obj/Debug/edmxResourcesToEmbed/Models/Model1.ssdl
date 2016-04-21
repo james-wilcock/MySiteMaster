@@ -15,6 +15,17 @@
     <Property Name="ArticleType" Type="nvarchar(max)" />
     <Property Name="ArticleImageAltText" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Features">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="ListingId" Type="int" Nullable="false" />
+    <Property Name="Property" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="FeatureAddedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="FeatureAdded" Type="datetime" />
+  </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ImageGalleries">
@@ -27,11 +38,23 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
     <Property Name="ImageAltText" Type="nvarchar(max)" />
     <Property Name="ArticleID" Type="int" />
   </EntityType>
+  <EntityType Name="ListingDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="ListingId" Type="int" />
+    <Property Name="RoomType" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoomName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SizeW" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="SizeL" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="SizeUnits" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="ListingImageGalleries">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="ImagePath" Type="nvarchar(max)" />
     <Property Name="ImageAltText" Type="nvarchar(max)" />
@@ -66,6 +89,22 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
     <Property Name="Pets" Type="bit" />
     <Property Name="Smoking" Type="bit" />
     <Property Name="DisabledAccess" Type="bit" />
+    <Property Name="Furnished" Type="nvarchar" MaxLength="50" />
+    <Property Name="PriceType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Storeys" Type="int" />
+    <Property Name="BasementType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Community" Type="nvarchar" MaxLength="50" />
+    <Property Name="LaundryType" Type="nvarchar" MaxLength="50" />
+    <Property Name="HeatingType" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParkingSpaces" Type="int" />
+    <Property Name="Utilities" Type="nvarchar" MaxLength="50" />
+    <Property Name="ServiceCharge" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CoolingType" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParkingType" Type="nvarchar" MaxLength="50" />
+    <Property Name="FuelType" Type="nvarchar" MaxLength="50" />
+    <Property Name="WalkScore" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="SizeUnits" Type="nvarchar" MaxLength="50" />
+    <Property Name="HeadImage" Type="int" />
   </EntityType>
   <EntityType Name="UserListings">
     <Key>
@@ -102,6 +141,30 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Features_ToListings">
+    <End Role="Listings" Type="Self.Listings" Multiplicity="1" />
+    <End Role="Features" Type="Self.Features" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Features">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ListingDetail_Listings">
+    <End Role="Listings" Type="Self.Listings" Multiplicity="0..1" />
+    <End Role="ListingDetail" Type="Self.ListingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ListingDetail">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserListings_Listings">
     <End Role="Listings" Type="Self.Listings" Multiplicity="1" />
     <End Role="UserListings" Type="Self.UserListings" Multiplicity="*" />
@@ -128,6 +191,8 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
   </Association>
   <EntityContainer Name="MySiteModelStoreContainer">
     <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Features" EntityType="Self.Features" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListingDetail" EntityType="Self.ListingDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ListingImageGalleries" EntityType="Self.ListingImageGalleries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Listings" EntityType="Self.Listings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserListings" EntityType="Self.UserListings" Schema="dbo" store:Type="Tables" />
@@ -144,6 +209,14 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
     <AssociationSet Name="FK_dbo_ListingImageGalleries_dbo_Listings_Id" Association="Self.FK_dbo_ListingImageGalleries_dbo_Listings_Id">
       <End Role="Listings" EntitySet="Listings" />
       <End Role="ListingImageGalleries" EntitySet="ListingImageGalleries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Features_ToListings" Association="Self.FK_Features_ToListings">
+      <End Role="Listings" EntitySet="Listings" />
+      <End Role="Features" EntitySet="Features" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ListingDetail_Listings" Association="Self.FK_ListingDetail_Listings">
+      <End Role="Listings" EntitySet="Listings" />
+      <End Role="ListingDetail" EntitySet="ListingDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_UserListings_Listings" Association="Self.FK_UserListings_Listings">
       <End Role="Listings" EntitySet="Listings" />

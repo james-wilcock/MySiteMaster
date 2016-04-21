@@ -14,7 +14,7 @@ namespace MySite.Models
     
     public partial class ListingImageGallery
     {
-        public System.Guid ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }
         public string ImageAltText { get; set; }

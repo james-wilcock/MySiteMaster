@@ -50,6 +50,16 @@
       <End Role="Listing" EntitySet="Listings" />
       <End Role="ListingImageGallery" EntitySet="ListingImageGalleries" />
     </AssociationSet>
+    <EntitySet Name="Features" EntityType="MySiteModel.Feature" />
+    <AssociationSet Name="FK_Features_ToListings" Association="MySiteModel.FK_Features_ToListings">
+      <End Role="Listing" EntitySet="Listings" />
+      <End Role="Feature" EntitySet="Features" />
+    </AssociationSet>
+    <EntitySet Name="ListingDetails" EntityType="MySiteModel.ListingDetail" />
+    <AssociationSet Name="FK_ListingDetail_Listings" Association="MySiteModel.FK_ListingDetail_Listings">
+      <End Role="Listing" EntitySet="Listings" />
+      <End Role="ListingDetail" EntitySet="ListingDetails" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_ImageGalleries_Articles">
     <End Type="MySiteModel.Article" Role="Article" Multiplicity="0..1" />
@@ -132,6 +142,24 @@
     <Property Name="DisabledAccess" Type="Boolean" />
     <NavigationProperty Name="UserListings" Relationship="MySiteModel.FK_UserListings_Listings" FromRole="Listing" ToRole="UserListing" />
     <NavigationProperty Name="ListingImageGalleries" Relationship="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id" FromRole="Listing" ToRole="ListingImageGallery" />
+    <Property Name="Furnished" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PriceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Storeys" Type="Int32" />
+    <Property Name="BasementType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LaundryType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HeatingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParkingSpaces" Type="Int32" />
+    <Property Name="Utilities" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ServiceCharge" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CoolingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParkingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FuelType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WalkScore" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Features" Relationship="MySiteModel.FK_Features_ToListings" FromRole="Listing" ToRole="Feature" />
+    <Property Name="SizeUnits" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ListingDetails" Relationship="MySiteModel.FK_ListingDetail_Listings" FromRole="Listing" ToRole="ListingDetail" />
+    <Property Name="HeadImage" Type="Int32" />
   </EntityType>
   <Association Name="FK_UserListings_Listings">
     <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="1" />
@@ -149,7 +177,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Guid" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ImageAltText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -165,6 +193,55 @@
       </Principal>
       <Dependent Role="ListingImageGallery">
         <PropertyRef Name="ListingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Feature">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ListingId" Type="Int32" Nullable="false" />
+    <Property Name="Property" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FeatureAddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FeatureAdded" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Listing" Relationship="MySiteModel.FK_Features_ToListings" FromRole="Feature" ToRole="Listing" />
+  </EntityType>
+  <Association Name="FK_Features_ToListings">
+    <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="1" />
+    <End Type="MySiteModel.Feature" Role="Feature" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Feature">
+        <PropertyRef Name="ListingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ListingDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="ListingId" Type="Int32" />
+    <Property Name="RoomType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SizeW" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="SizeL" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="SizeUnits" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Listing" Relationship="MySiteModel.FK_ListingDetail_Listings" FromRole="ListingDetail" ToRole="Listing" />
+  </EntityType>
+  <Association Name="FK_ListingDetail_Listings">
+    <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="0..1" />
+    <End Type="MySiteModel.ListingDetail" Role="ListingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Listing">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ListingDetail">
+        <PropertyRef Name="ListingId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

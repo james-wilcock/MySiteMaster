@@ -11,7 +11,7 @@ using MySite.DAL;
 using MySite.Models;
 using MySite.Services;
 using PagedList;
-
+using MySite.Infrastructure;
 namespace MySite.Controllers
 {
     public class ListingController : Controller
@@ -83,10 +83,18 @@ namespace MySite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin,landlord,realtor")]
-        public ActionResult Create([Bind(Include="Id,DateListed,Status,ListingExpiry,ListingUpdated,ListingAddedBy,ListingUpdatedBy,DateAvailable,ListingType,Price,Deposit,BuildingType,ContractLength,Address,City,Country,Postcode,Description,Rooms,Bedrooms,Size,Bathrooms,Pets,Smoking,DisabledAccess")] Listing listing)
+        public ActionResult Create([Bind(Include="Id, DateAvailable, Price,Deposit,BuildingType,ContractLength,Address,City,Country,Postcode,Description,Rooms,Bedrooms,Size,Bathrooms,Pets,Smoking,DisabledAccess")] Listing listing)
         {
             if (ModelState.IsValid)
             {
+                listing.DateListed = DateTime.Now;
+                listing.Status = MySite.Infrastructure.SiteConstants.PropertyStatus.ForRent;
+                listing.ListingExpiry = DateTime.Now.AddMonths(1);
+                listing.ListingUpdated = listing.DateListed;
+                listing.ListingAddedBy = Profile.UserName;
+                listing.ListingUpdatedBy = listing.ListingAddedBy;
+                listing.ListingType = MySite.Infrastructure.SiteConstants.ListingType.ForRent;
+
                 db.Listings.Add(listing);
                 db.SaveChanges();
                 return RedirectToAction("Index");

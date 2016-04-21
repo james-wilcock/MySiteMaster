@@ -20,6 +20,17 @@
           <Property Name="ArticleType" Type="nvarchar(max)" />
           <Property Name="ArticleImageAltText" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Features">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ListingId" Type="int" Nullable="false" />
+          <Property Name="Property" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="FeatureAddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="FeatureAdded" Type="datetime" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ImageGalleries">
@@ -32,11 +43,23 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <Property Name="ImageAltText" Type="nvarchar(max)" />
           <Property Name="ArticleID" Type="int" />
         </EntityType>
+        <EntityType Name="ListingDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ListingId" Type="int" />
+          <Property Name="RoomType" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoomName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SizeW" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="SizeL" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="SizeUnits" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ListingImageGalleries">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="ImagePath" Type="nvarchar(max)" />
           <Property Name="ImageAltText" Type="nvarchar(max)" />
@@ -71,6 +94,22 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <Property Name="Pets" Type="bit" />
           <Property Name="Smoking" Type="bit" />
           <Property Name="DisabledAccess" Type="bit" />
+          <Property Name="Furnished" Type="nvarchar" MaxLength="50" />
+          <Property Name="PriceType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Storeys" Type="int" />
+          <Property Name="BasementType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Community" Type="nvarchar" MaxLength="50" />
+          <Property Name="LaundryType" Type="nvarchar" MaxLength="50" />
+          <Property Name="HeatingType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParkingSpaces" Type="int" />
+          <Property Name="Utilities" Type="nvarchar" MaxLength="50" />
+          <Property Name="ServiceCharge" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CoolingType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParkingType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FuelType" Type="nvarchar" MaxLength="50" />
+          <Property Name="WalkScore" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="SizeUnits" Type="nvarchar" MaxLength="50" />
+          <Property Name="HeadImage" Type="int" />
         </EntityType>
         <EntityType Name="UserListings">
           <Key>
@@ -107,6 +146,30 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Features_ToListings">
+          <End Role="Listings" Type="Self.Listings" Multiplicity="1" />
+          <End Role="Features" Type="Self.Features" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Features">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListingDetail_Listings">
+          <End Role="Listings" Type="Self.Listings" Multiplicity="0..1" />
+          <End Role="ListingDetail" Type="Self.ListingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListingDetail">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserListings_Listings">
           <End Role="Listings" Type="Self.Listings" Multiplicity="1" />
           <End Role="UserListings" Type="Self.UserListings" Multiplicity="*" />
@@ -133,6 +196,8 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
         </Association>
         <EntityContainer Name="MySiteModelStoreContainer">
           <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Features" EntityType="Self.Features" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListingDetail" EntityType="Self.ListingDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListingImageGalleries" EntityType="Self.ListingImageGalleries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Listings" EntityType="Self.Listings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserListings" EntityType="Self.UserListings" Schema="dbo" store:Type="Tables" />
@@ -149,6 +214,14 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <AssociationSet Name="FK_dbo_ListingImageGalleries_dbo_Listings_Id" Association="Self.FK_dbo_ListingImageGalleries_dbo_Listings_Id">
             <End Role="Listings" EntitySet="Listings" />
             <End Role="ListingImageGalleries" EntitySet="ListingImageGalleries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Features_ToListings" Association="Self.FK_Features_ToListings">
+            <End Role="Listings" EntitySet="Listings" />
+            <End Role="Features" EntitySet="Features" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListingDetail_Listings" Association="Self.FK_ListingDetail_Listings">
+            <End Role="Listings" EntitySet="Listings" />
+            <End Role="ListingDetail" EntitySet="ListingDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_UserListings_Listings" Association="Self.FK_UserListings_Listings">
             <End Role="Listings" EntitySet="Listings" />
@@ -212,6 +285,16 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <AssociationSet Name="FK_dbo_ListingImageGalleries_dbo_Listings_Id" Association="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id">
             <End Role="Listing" EntitySet="Listings" />
             <End Role="ListingImageGallery" EntitySet="ListingImageGalleries" />
+          </AssociationSet>
+          <EntitySet Name="Features" EntityType="MySiteModel.Feature" />
+          <AssociationSet Name="FK_Features_ToListings" Association="MySiteModel.FK_Features_ToListings">
+            <End Role="Listing" EntitySet="Listings" />
+            <End Role="Feature" EntitySet="Features" />
+          </AssociationSet>
+          <EntitySet Name="ListingDetails" EntityType="MySiteModel.ListingDetail" />
+          <AssociationSet Name="FK_ListingDetail_Listings" Association="MySiteModel.FK_ListingDetail_Listings">
+            <End Role="Listing" EntitySet="Listings" />
+            <End Role="ListingDetail" EntitySet="ListingDetails" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="FK_ImageGalleries_Articles">
@@ -295,6 +378,24 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <Property Name="DisabledAccess" Type="Boolean" />
           <NavigationProperty Name="UserListings" Relationship="MySiteModel.FK_UserListings_Listings" FromRole="Listing" ToRole="UserListing" />
           <NavigationProperty Name="ListingImageGalleries" Relationship="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id" FromRole="Listing" ToRole="ListingImageGallery" />
+          <Property Name="Furnished" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PriceType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Storeys" Type="Int32" />
+          <Property Name="BasementType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Community" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LaundryType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HeatingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingSpaces" Type="Int32" />
+          <Property Name="Utilities" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceCharge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CoolingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FuelType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WalkScore" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Features" Relationship="MySiteModel.FK_Features_ToListings" FromRole="Listing" ToRole="Feature" />
+          <Property Name="SizeUnits" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListingDetails" Relationship="MySiteModel.FK_ListingDetail_Listings" FromRole="Listing" ToRole="ListingDetail" />
+          <Property Name="HeadImage" Type="Int32" />
         </EntityType>
         <Association Name="FK_UserListings_Listings">
           <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="1" />
@@ -312,7 +413,7 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ImageAltText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -328,6 +429,55 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
             </Principal>
             <Dependent Role="ListingImageGallery">
               <PropertyRef Name="ListingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ListingId" Type="Int32" Nullable="false" />
+          <Property Name="Property" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FeatureAddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FeatureAdded" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Listing" Relationship="MySiteModel.FK_Features_ToListings" FromRole="Feature" ToRole="Listing" />
+        </EntityType>
+        <Association Name="FK_Features_ToListings">
+          <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="1" />
+          <End Type="MySiteModel.Feature" Role="Feature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Feature">
+              <PropertyRef Name="ListingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ListingDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ListingId" Type="Int32" />
+          <Property Name="RoomType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SizeW" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeL" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SizeUnits" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listing" Relationship="MySiteModel.FK_ListingDetail_Listings" FromRole="ListingDetail" ToRole="Listing" />
+        </EntityType>
+        <Association Name="FK_ListingDetail_Listings">
+          <End Type="MySiteModel.Listing" Role="Listing" Multiplicity="0..1" />
+          <End Type="MySiteModel.ListingDetail" Role="ListingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListingDetail">
+              <PropertyRef Name="ListingId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -392,6 +542,22 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <EntitySetMapping Name="Listings">
             <EntityTypeMapping TypeName="MySiteModel.Listing">
               <MappingFragment StoreEntitySet="Listings">
+                <ScalarProperty Name="HeadImage" ColumnName="HeadImage" />
+                <ScalarProperty Name="SizeUnits" ColumnName="SizeUnits" />
+                <ScalarProperty Name="WalkScore" ColumnName="WalkScore" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="ParkingType" ColumnName="ParkingType" />
+                <ScalarProperty Name="CoolingType" ColumnName="CoolingType" />
+                <ScalarProperty Name="ServiceCharge" ColumnName="ServiceCharge" />
+                <ScalarProperty Name="Utilities" ColumnName="Utilities" />
+                <ScalarProperty Name="ParkingSpaces" ColumnName="ParkingSpaces" />
+                <ScalarProperty Name="HeatingType" ColumnName="HeatingType" />
+                <ScalarProperty Name="LaundryType" ColumnName="LaundryType" />
+                <ScalarProperty Name="Community" ColumnName="Community" />
+                <ScalarProperty Name="BasementType" ColumnName="BasementType" />
+                <ScalarProperty Name="Storeys" ColumnName="Storeys" />
+                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+                <ScalarProperty Name="Furnished" ColumnName="Furnished" />
                 <ScalarProperty Name="DisabledAccess" ColumnName="DisabledAccess" />
                 <ScalarProperty Name="Smoking" ColumnName="Smoking" />
                 <ScalarProperty Name="Pets" ColumnName="Pets" />
@@ -428,6 +594,31 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Features">
+            <EntityTypeMapping TypeName="MySiteModel.Feature">
+              <MappingFragment StoreEntitySet="Features">
+                <ScalarProperty Name="FeatureAdded" ColumnName="FeatureAdded" />
+                <ScalarProperty Name="FeatureAddedBy" ColumnName="FeatureAddedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListingDetails">
+            <EntityTypeMapping TypeName="MySiteModel.ListingDetail">
+              <MappingFragment StoreEntitySet="ListingDetail">
+                <ScalarProperty Name="SizeUnits" ColumnName="SizeUnits" />
+                <ScalarProperty Name="SizeL" ColumnName="SizeL" />
+                <ScalarProperty Name="SizeW" ColumnName="SizeW" />
+                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
+                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

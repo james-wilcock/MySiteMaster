@@ -1,5 +1,5 @@
 ﻿@using MySite.Models;
-@model PagedList.IPagedList<MySite.Models.Article>
+@model PagedList.IPagedList<MySite.Models.Listing>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <!-- Custom CSS -->
@@ -21,30 +21,24 @@
         </div>
       
             <div class="row">@foreach (var item in Model)
+    {
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+            @foreach (var item1 in item.ListingImageGalleries.Where(x => x.ID == Convert.ToInt32(item.HeadImage)))
         {
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img class="img-responsive" src="\Content\Images\@item.ArticleImage" alt="@item.ArticleImageAltText">
-                       
-                        <div class="caption">
-                            <h4 class="pull-right">$24.99</h4>
+        
+                <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item.Address, @item.City" >
+    }
+    <div class="caption">
+                            <h4 class="pull-right">@Html.DisplayFor(modelItem => item.Price) </h4>@Html.DisplayFor(modelItem => item.PriceType)
                             <h4>
-                                <a href="~/Search/Detail/@item.ArticleId">@Html.DisplayFor(modelItem => item.Title)</a>
+                                <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City)</a>
                             </h4>
                             <p>
-                                See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.
+                                
                             </p>
                         </div>
-                        <div class="ratings">
-                            <p class="pull-right">15 reviews</p>
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </p>
-                        </div>
+
                     </div>
                 </div>
   }

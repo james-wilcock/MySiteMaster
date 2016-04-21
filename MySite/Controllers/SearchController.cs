@@ -13,7 +13,7 @@ namespace MySite.Controllers
     {
     
           private DbConnectionContext db = new DbConnectionContext();
-        IArticleRepository ar = new EF_ArticleRepository();
+        IListingRepository lr = new EF_ListingRepository();
 
         // GET: /Article/Articles
         public ViewResult Search(int? page)
@@ -22,9 +22,11 @@ namespace MySite.Controllers
             int pageSize = 9;
             int pageNumber = (page ?? 1);
            
-            return View(ar.GetAllArticles().ToPagedList(pageNumber, pageSize));
+            return View(lr.SearchListings().ToPagedList(pageNumber, pageSize));
         }
         
+
+
 
           public ActionResult Detail(int? id)
         {
@@ -35,13 +37,13 @@ namespace MySite.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             int v2 = id ?? default(int);
-            Article article = ar.GetArticleById(v2);
+            Listing listing = lr.GetListingById(v2);
 
-            if (article == null)
+            if (listing == null)
             {
                 return HttpNotFound();
             }
-            return View(article);
+            return View(listing);
         }
 
     //    public ActionResult Search(String SearchType, String SearchString)

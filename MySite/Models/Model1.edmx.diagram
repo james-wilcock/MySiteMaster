@@ -15,6 +15,10 @@
         <AssociationConnector Association="MySiteModel.FK_UserListings_Listings" />
         <EntityTypeShape EntityType="MySiteModel.ListingImageGallery" Width="1.5" PointX="3" PointY="7.125" />
         <AssociationConnector Association="MySiteModel.FK_dbo_ListingImageGalleries_dbo_Listings_Id" />
+        <EntityTypeShape EntityType="MySiteModel.Feature" Width="1.5" PointX="5.375" PointY="5.75" />
+        <AssociationConnector Association="MySiteModel.FK_Features_ToListings" />
+        <EntityTypeShape EntityType="MySiteModel.ListingDetail" Width="1.5" PointX="3" PointY="11" />
+        <AssociationConnector Association="MySiteModel.FK_ListingDetail_Listings" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
