@@ -97,6 +97,22 @@ namespace MySite.Controllers
 
                 db.Listings.Add(listing);
                 db.SaveChanges();
+                string mystring = ViewBag.Files;
+
+var query = from val in mystring.Split(',')
+            select int.Parse(val);
+foreach (int num in query)
+{
+   var original = db.ListingsImageGalleries.Find(num);
+
+if (original != null)
+{
+    original.ListingID = listing.Id;
+    db.SaveChanges();
+}    
+}
+             
+
                 return RedirectToAction("Index");
             }
 
@@ -170,5 +186,40 @@ namespace MySite.Controllers
             }
             base.Dispose(disposing);
         }
+
+          [HttpPost]
+           public ActionResult UploadImageMethod()
+            {
+                if (Request.Files.Count != 0)
+                {
+                    string[] keys = Request.Files.AllKeys;
+                    string inserted = "";
+                    string[] insertedValues = new string[Request.Files.Count];
+                   
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+                        HttpPostedFileBase file = Request.Files[i];
+                        int fileSize = file.ContentLength;
+                        string fileName = keys[i];
+                        var target = "/Content/Images/" + fileName;
+                        var path = Server.MapPath(target);
+                        file.SaveAs(path);
+                        ListingImageGallery imageGallery = new ListingImageGallery();
+                   
+                        imageGallery.Name = fileName;
+                        imageGallery.ImagePath = fileName;
+                        db.ListingsImageGalleries.Add(imageGallery);
+                        db.SaveChanges();
+
+                        insertedValues[i] = imageGallery.ID.ToString();
+
+                    }
+                    inserted = string.Join(",", insertedValues);
+                    ViewBag.Files=inserted;
+                    return Content("Success");
+                }
+                return Content("failed");
+            }
+
     }
 }
