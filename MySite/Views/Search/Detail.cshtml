@@ -11,44 +11,115 @@
             </div>
         </div>
         <div class="col-md-9">
-            <div class="thumbnail">
 
-                @foreach (var item1 in Model.ListingImageGalleries.Where(x => x.ListingID == Convert.ToInt32(Model.Id)))
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+
+                    @{
+                        var cnt = Model.ListingImageGalleries.Where(x => x.ListingID == Convert.ToInt32(Model.Id)).Count();
+                        var i = 0;
+                        var y = 0;
+                                            var strCSSClass = "active";
+                       var strCSSClass2 = "active";      }
+                    @foreach (var item1 in Model.ListingImageGalleries.Where(x => x.ListingID == Convert.ToInt32(Model.Id)))
+                    {
+                        <li data-target="#myCarousel" data-slide-to="@i" class="@strCSSClass"></li>
+                         i++;
+                        strCSSClass = "";
+                    }
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    @foreach (var item1 in Model.ListingImageGalleries.Where(x => x.ListingID == Convert.ToInt32(Model.Id)))
                 {
-                    <a class="grouped_elements" rel="group1" href="\Content\Images\@item1.ImagePath">
 
-                        <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item1.ImageAltText">
-                    </a>
+
+                        <div class="item @strCSSClass2">
+
+                            <a class="grouped_elements" rel="group1" title="@item1.ImageAltText" data-fancybox-group="group1" href="\Content\Images\@item1.ImagePath">
+                                <div class="thumbnail">
+                                    <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@Model.Address">
+                                </div>
+                            </a>
+                        </div>
+
+                        y++;
+                      strCSSClass2 = "";
                 }
-                <div class="caption-full">
-                    <h4 class="pull-right">@Html.DisplayFor(modelItem => Model.Price) </h4> @Html.DisplayFor(modelItem => Model.PriceType)
-                    <h4>
-                        <a href="#">@Html.DisplayFor(modelItem => Model.Address), @Html.DisplayFor(modelItem => Model.City)</a>
-                    </h4>
-                    <p>@Html.DisplayFor(modelItem => Model.Description)</p>
-
                 </div>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="caption-full">
+                <h4 class="pull-right">@Html.DisplayFor(modelItem => Model.Price) </h4> @Html.DisplayFor(modelItem => Model.PriceType)
+                <h4>
+                    <a href="#">@Html.DisplayFor(modelItem => Model.Address), @Html.DisplayFor(modelItem => Model.City)</a>
+                </h4>
+                <p>@Html.DisplayFor(modelItem => Model.Description)</p>
 
             </div>
-
-
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function () {
 
-       
+
 
         /* Apply fancybox to multiple items */
 
-        $("grouped_elements.group").fancybox({
+        $("a[rel=group1]").fancybox({
+
+            'hideOnContentClick': false,
+            'titlePosition': 'inside',
             'transitionIn': 'elastic',
             'transitionOut': 'elastic',
             'speedIn': 600,
             'speedOut': 200,
             'overlayShow': false
         });
+
+    });
+
+    jQuery(function ($) {
+
+        // settings
+        var $slider = $('.slider'); // class or id of carousel slider
+        var $slide = 'li'; // could also use 'img' if you're not using a ul
+        var $transition_time = 1000; // 1 second
+        var $time_between_slides = 4000; // 4 seconds
+
+        function slides() {
+            return $slider.find($slide);
+        }
+
+        slides().fadeOut();
+
+        // set active classes
+        slides().first().addClass('active');
+        slides().first().fadeIn($transition_time);
+
+        // auto scroll
+        $interval = setInterval(
+          function () {
+              var $i = $slider.find($slide + '.active').index();
+
+              slides().eq($i).removeClass('active');
+              slides().eq($i).fadeOut($transition_time);
+
+              if (slides().length == $i + 1) $i = -1; // loop to start
+
+              slides().eq($i + 1).fadeIn($transition_time);
+              slides().eq($i + 1).addClass('active');
+          }
+          , $transition_time + $time_between_slides
+        );
 
     });
 </script>

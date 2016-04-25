@@ -56,3 +56,18 @@ border-radius: 0!important;
 .custom-glyph-color:hover{
     color:#b1b1b1;         /* change  magnifying glass color in  button on mouse hover */
 }
+
+.slider {
+  margin: 10px 0;
+  width: 580px; /* Update to your slider width */
+  height: 250px; /* Update to your slider height */
+  position: relative;
+  overflow: hidden;
+}
+
+.slider li {
+  display: none;
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+}
