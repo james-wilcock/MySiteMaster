@@ -9,34 +9,41 @@
 <div class="container">
     <div class="row">
 
-       <div class="row">@foreach (var item in Model)
-        {
+        <div class="row">
+            @foreach (var item in Model)
+    {
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                       @* <img class="img-responsive" src="\Content\Images\@item.ArticleImage" alt="@item.ArticleImageAltText">
-                      *@ 
+                        @foreach (var item1 in item.ListingImageGalleries.Where(x => x.ID == Convert.ToInt32(item.HeadImage)))
+                        {
+
+    <a href="~/Search/Detail/@item.Id">
+        <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item.Address, @item.City">
+    </a>
+                        }
                         <div class="caption">
-                            <h4>@Html.DisplayFor(modelItem =>  item.Price)</h4>
-                        
-                            <h5>
-                                <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address)</a>
-                            </h5>
-                       
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right"><a href="/Listings/Edit/@item.Id">Edit</a></p>
+                            <h4 class="pull-right">@Html.DisplayFor(modelItem => item.Price) </h4>@Html.DisplayFor(modelItem => item.PriceType)
+                            <h4>
+                                <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City)</a>
+                            </h4>
                             <p>
-                             
+
                             </p>
                         </div>
+
+                    </div>
+                    <div class="ratings">
+                        <p class="pull-right"><a href="/Listing/Edit/@item.Id">Edit</a></p>
+                        <p>
+
+                        </p>
                     </div>
                 </div>
   }
-            </div>
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("MyListings",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model, page => Url.Action("MyListings", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
       
     </div>
 </div>

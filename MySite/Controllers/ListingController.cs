@@ -40,7 +40,7 @@ namespace MySite.Controllers
         public ViewResult MyListings(int? page)
         {
 
-            int pageSize = 3;
+            int pageSize = 9;
             int pageNumber = (page ?? 1);
             string username =
                            FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
@@ -121,13 +121,25 @@ if (original != null)
 
         // GET: /Listing/Edit/5
         [Authorize(Roles = "admin,landlord,realtor")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Listing listing = db.Listings.Find(id);
+
+               string username =
+                           FormsAuthentication.Decrypt(Request.Cookies[FormsAuthentication.FormsCookieName].Value).Name;
+
+            int userId;
+            using (MySiteEntities entities = new MySiteEntities())
+            {
+                User user = entities.Users.SingleOrDefault(u => u.UserId == username);
+
+                userId = user.Id;
+            }
+
+            Listing listing = ar.GetMyListingsById(userId,id).FirstOrDefault();
             if (listing == null)
             {
                 return HttpNotFound();

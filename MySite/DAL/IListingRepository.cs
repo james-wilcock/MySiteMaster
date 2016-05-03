@@ -14,6 +14,7 @@ namespace MySite.DAL
         Listing GetListingById(int id);
         IEnumerable<Listing> GetAllListings();
         IEnumerable<Listing> GetMyListings(int userId);
+          IEnumerable<Listing> GetMyListingsById(int userId, int Id);
           IEnumerable<Listing> SearchListings();
 
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -62,7 +63,19 @@ namespace MySite.DAL
 
             IEnumerable<Listing> lists = from g in db.Listings
                 join u in db.UserListings on g.Id equals u.Listing_Id
-                        where u.Id.Equals(userId)
+                        where u.User_Id.Equals(userId)
+                        orderby u.Listing_Id
+                select g;
+
+            return lists;
+        }
+
+           public IEnumerable<Listing> GetMyListingsById(int userId, int id)
+        {
+
+            IEnumerable<Listing> lists = from g in db.Listings
+                join u in db.UserListings on g.Id equals u.Listing_Id
+                        where u.User_Id.Equals(userId) && g.Id.Equals(id) 
                         orderby u.Listing_Id
                 select g;
 

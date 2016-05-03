@@ -3,14 +3,14 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <!-- Custom CSS -->
-<link href="css/shop-homepage.css" rel="stylesheet">
+<link href="~/Content/shop-homepage.css" rel="stylesheet">
 
 <!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <div class="col-md-12">
-            <div class="list-group" ng-app="myApp" ng-controller="locationsCtrl">
+            <div class="list-group" ng-app="myApp" ng-controller="appController">
                 {{message}}
                 <ul>
                     <li ng-repeat="x in myData">
@@ -26,20 +26,21 @@
             <div class="thumbnail">
             @foreach (var item1 in item.ListingImageGalleries.Where(x => x.ID == Convert.ToInt32(item.HeadImage)))
         {
-        
-                <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item.Address, @item.City" >
-    }
-    <div class="caption">
-                            <h4 class="pull-right">@Html.DisplayFor(modelItem => item.Price) </h4>@Html.DisplayFor(modelItem => item.PriceType)
-                            <h4>
-                                <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City)</a>
-                            </h4>
-                            <p>
-                                
-                            </p>
-                        </div>
+    <a href="~/Search/Detail/@item.Id">
+        <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item.Address, @item.City">
+    </a>
+        }
+        <div class="caption">
+            <h4 class="pull-right">@Html.DisplayFor(modelItem => item.Price) </h4>@Html.DisplayFor(modelItem => item.PriceType)
+            <h4>
+                <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City)</a>
+            </h4>
+            <p>
 
-                    </div>
+            </p>
+        </div>
+
+</div>
                 </div>
   }
             </div>

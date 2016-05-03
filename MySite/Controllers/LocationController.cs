@@ -16,8 +16,8 @@ namespace MySite.Controllers
 
         [HttpGet]
         public JsonResult LocationJsonResult() {
-             var result = new {town="Toronto", province="Ontario"};
-            return Json(result, JsonRequestBehavior.AllowGet);       
+           
+            return Json(new {town="Toronto", province="Ontario"}, JsonRequestBehavior.AllowGet);       
             }
     }
 }

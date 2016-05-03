@@ -40,8 +40,13 @@ namespace MySite
           );
              routes.MapRoute(
               name: "MyListings",
-              url: "MyListings/{action}/{id}",
+              url: "Listing/MyListings/{id}",
               defaults: new { controller = "Listing", action = "MyListings", id = UrlParameter.Optional }
+          );
+             routes.MapRoute(
+              name: "Edit",
+              url: "Listing/Edit/{id}",
+              defaults: new { controller = "Listing", action = "Edit", id = UrlParameter.Optional }
           );
              routes.MapRoute(
                 name: "Default",
