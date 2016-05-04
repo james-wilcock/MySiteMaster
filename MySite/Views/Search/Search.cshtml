@@ -1,55 +1,63 @@
 ﻿@using MySite.Models;
-@model PagedList.IPagedList<MySite.Models.Listing>
-@using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-<!-- Custom CSS -->
-<link href="~/Content/shop-homepage.css" rel="stylesheet">
 
-<!-- Page Content -->
-<div class="container">
-    <div class="row">
+    @using PagedList.Mvc;
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <link href="~/Content/shop-homepage.css" rel="stylesheet">
 
-        <div class="col-md-12">
-            <div class="list-group" ng-app="myApp" ng-controller="appController">
-                {{message}}
-                <ul>
-                    <li ng-repeat="x in myData">
-                        {{ x.town + ', ' + x.province }}
-                    </li>
-                </ul>
-            </div>
-        </div>
-      
-            <div class="row">@foreach (var item in Model)
-    {
-        <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-            @foreach (var item1 in item.ListingImageGalleries.Where(x => x.ID == Convert.ToInt32(item.HeadImage)))
-        {
-    <a href="~/Search/Detail/@item.Id">
-        <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item.Address, @item.City">
-    </a>
-        }
-        <div class="caption">
-            <h4 class="pull-right">@Html.DisplayFor(modelItem => item.Price) </h4>@Html.DisplayFor(modelItem => item.PriceType)
-            <h4>
-                <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City)</a>
-            </h4>
-            <p>
+    <!-- Page Content -->
+    <div class="container"  ng-app="myApp" ng-controller="appController">
+        <div class="row">
+            <div class="col-sm-4 col-lg-4 col-md-4"  ng-repeat="x in myData">
+                <div class="thumbnail">
+                    
+                    <a href="~/Search/Detail/{{x.Id}}">
+                        <img class="img-responsive" src="\Content\Images\{{x.FrontImagePath}}" alt="{{x.Address}}, {{x.City}}">
+                    </a>
 
-            </p>
-        </div>
+                    <div class="caption">
+                        <h4 class="pull-right">{{x.Price}} </h4>{{x.PriceType}}
+                        <h4>
+                            <a href="~/Search/Detail/{{x.Id}}">{{x.Address}},{{x.City}}</a>
+                        </h4>
+                        <p>
 
-</div>
+                        </p>
+                    </div>
+                   
                 </div>
-  }
-            </div>
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("Search",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-      
-    </div>
+                </div>
+               @* <div class="row">@foreach (var item in Model)
+                {
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                        @foreach (var item1 in item.ListingImageGalleries.Where(x => x.ID == Convert.ToInt32(item.HeadImage)))
+                    {
+                <a href="~/Search/Detail/@item.Id">
+                    <img class="img-responsive" src="\Content\Images\@item1.ImagePath" alt="@item.Address, @item.City">
+                </a>
+                    }
+                    <div class="caption">
+                        <h4 class="pull-right">@Html.DisplayFor(modelItem => item.Price) </h4>@Html.DisplayFor(modelItem => item.PriceType)
+                        <h4>
+                            <a href="~/Search/Detail/@item.Id">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.City)</a>
+                        </h4>
+                        <p>
+
+                        </p>
+                    </div>
+
+            </div>
+                            </div>
+              }
+                        </div>*@
+                @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("Search",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))*@
+
+            </div>
 </div>
 
 

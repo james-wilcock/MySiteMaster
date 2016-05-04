@@ -16,15 +16,34 @@ namespace MySite.Controllers
         IListingRepository lr = new EF_ListingRepository();
 
         // GET: /Article/Articles
-        public ViewResult Search(int? page)
+        //   public ViewResult Search(int? page)
+        //    {
+        //
+        //        int pageSize = 9;
+        //      int pageNumber = (page ?? 1);
+        //       
+        //       return View(lr.SearchListings().ToPagedList(pageNumber, pageSize));
+        //     
+        //     }
+
+        // GET: /Article/Articles
+        public ViewResult Search()
         {
 
-            int pageSize = 9;
-            int pageNumber = (page ?? 1);
+          
            
-            return View(lr.SearchListings().ToPagedList(pageNumber, pageSize));
+           return View();
+         
         }
         
+        [HttpGet]
+          public JsonResult SearchJsonResult()
+        {
+
+
+           
+            return Json(lr.SearchListings(), JsonRequestBehavior.AllowGet);
+        }
 
 
 

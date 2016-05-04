@@ -43,18 +43,6 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <Property Name="ImageAltText" Type="nvarchar(max)" />
           <Property Name="ArticleID" Type="int" />
         </EntityType>
-        <EntityType Name="ListingDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ListingId" Type="int" />
-          <Property Name="RoomType" Type="nvarchar" MaxLength="50" />
-          <Property Name="RoomName" Type="nvarchar" MaxLength="50" />
-          <Property Name="SizeW" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="SizeL" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="SizeUnits" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="ListingImageGalleries">
           <Key>
             <PropertyRef Name="ID" />
@@ -158,18 +146,6 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListingDetail_Listings">
-          <End Role="Listings" Type="Self.Listings" Multiplicity="0..1" />
-          <End Role="ListingDetail" Type="Self.ListingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Listings">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ListingDetail">
-              <PropertyRef Name="ListingId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserListings_Listings">
           <End Role="Listings" Type="Self.Listings" Multiplicity="1" />
           <End Role="UserListings" Type="Self.UserListings" Multiplicity="*" />
@@ -197,7 +173,6 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
         <EntityContainer Name="MySiteModelStoreContainer">
           <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Features" EntityType="Self.Features" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ListingDetail" EntityType="Self.ListingDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListingImageGalleries" EntityType="Self.ListingImageGalleries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Listings" EntityType="Self.Listings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserListings" EntityType="Self.UserListings" Schema="dbo" store:Type="Tables" />
@@ -218,10 +193,6 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
           <AssociationSet Name="FK_Features_ToListings" Association="Self.FK_Features_ToListings">
             <End Role="Listings" EntitySet="Listings" />
             <End Role="Features" EntitySet="Features" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListingDetail_Listings" Association="Self.FK_ListingDetail_Listings">
-            <End Role="Listings" EntitySet="Listings" />
-            <End Role="ListingDetail" EntitySet="ListingDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_UserListings_Listings" Association="Self.FK_UserListings_Listings">
             <End Role="Listings" EntitySet="Listings" />
@@ -604,19 +575,6 @@ warning 6002: The table/view 'MySite.dbo.ImageGalleries' does not have a primary
                 <ScalarProperty Name="FeatureAddedBy" ColumnName="FeatureAddedBy" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Property" ColumnName="Property" />
-                <ScalarProperty Name="ListingId" ColumnName="ListingId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ListingDetails">
-            <EntityTypeMapping TypeName="MySiteModel.ListingDetail">
-              <MappingFragment StoreEntitySet="ListingDetail">
-                <ScalarProperty Name="SizeUnits" ColumnName="SizeUnits" />
-                <ScalarProperty Name="SizeL" ColumnName="SizeL" />
-                <ScalarProperty Name="SizeW" ColumnName="SizeW" />
-                <ScalarProperty Name="RoomName" ColumnName="RoomName" />
-                <ScalarProperty Name="RoomType" ColumnName="RoomType" />
                 <ScalarProperty Name="ListingId" ColumnName="ListingId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

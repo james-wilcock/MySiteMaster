@@ -13,7 +13,9 @@ namespace MySite.Models
                 : base("name=dbContext")
             {
                // Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DbConnectionContext>());
+                this.Configuration.ProxyCreationEnabled = false; 
             }
+         
             public DbSet<ImageGallery> ImageGallery { get; set; }
 
             public System.Data.Entity.DbSet<MySite.Models.Article> Articles { get; set; }

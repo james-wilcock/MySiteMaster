@@ -123,18 +123,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ListingDetails">
-      <EntityTypeMapping TypeName="MySiteModel.ListingDetail">
-        <MappingFragment StoreEntitySet="ListingDetail">
-          <ScalarProperty Name="SizeUnits" ColumnName="SizeUnits" />
-          <ScalarProperty Name="SizeL" ColumnName="SizeL" />
-          <ScalarProperty Name="SizeW" ColumnName="SizeW" />
-          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
-          <ScalarProperty Name="RoomType" ColumnName="RoomType" />
-          <ScalarProperty Name="ListingId" ColumnName="ListingId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

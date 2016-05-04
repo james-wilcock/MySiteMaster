@@ -3,13 +3,13 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <!-- Custom CSS -->
-<link href="css/shop-homepage.css" rel="stylesheet">
+<link href="~/Content/shop-homepage.css" rel="stylesheet">
 
 <!-- Page Content -->
 <div class="container">
     <div class="row">
 
-        <div class="row">
+    
             @foreach (var item in Model)
     {
                 <div class="col-sm-4 col-lg-4 col-md-4">
@@ -45,7 +45,7 @@
 
     @Html.PagedListPager(Model, page => Url.Action("MyListings", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
       
-    </div>
+ 
 </div>
 
 

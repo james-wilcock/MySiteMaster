@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MySite.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MySite.Models
 {
@@ -12,7 +13,23 @@ namespace MySite.Models
     public partial class Listing
     {
         // Add logic to the generated class in here.
-
+          public string FrontImagePath
+      {
+           get
+          {
+              
+                  if (ListingImageGalleries.Count > 0)
+                 {     
+                    return ListingImageGalleries.Where(a => Id == Convert.ToInt32(HeadImage)).FirstOrDefault().ImagePath.ToString();
+              }
+          else
+                {
+                    return  "";
+                }
+          
+             
+         }
+      }
 
     }
 
@@ -24,9 +41,16 @@ namespace MySite.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public string Price { get; set; }
 
-      
+     
+   
 
-        // public virtual ICollection<ImageGallery> ImageGalleries { get; set; }
+        public int Id { get; set; }
+        public int HeadImage { get; set; }
+        
+        public DateTime DateListed  { get; set; }
+
+        public virtual ICollection<ListingImageGallery> ListingImageGalleries { get; set; }
+  
 
     }
 

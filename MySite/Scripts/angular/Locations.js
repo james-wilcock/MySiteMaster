@@ -4,8 +4,8 @@
 
   var appController = function($scope, $http) {
 
-    $http.get("/Location/LocationJsonResult").then(function(response) {
-      $scope.myData = response.data.records;
+    $http.get("/Search/SearchJsonResult").then(function(response) {
+      $scope.myData = response.data;
 
     });
 
